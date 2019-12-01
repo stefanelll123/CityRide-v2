@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CityRide.Adapters.DataAccess.Bike\CityRide.Adapters.DataAccess.Bike.csproj" />
+    <ProjectReference Include="..\CityRide.Adapters.Web.Bike\CityRide.Adapters.Web.Bike.csproj" />
+    <ProjectReference Include="..\CityRide.Domain.Bike\CityRide.Domain.Bike.csproj" />
+  </ItemGroup>
+
+</Project>

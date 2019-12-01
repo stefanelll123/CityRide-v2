@@ -12,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CityRide.Business\CityRide.Business.csproj" />
-    <ProjectReference Include="..\CityRide.Domain\CityRide.Domain.csproj" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

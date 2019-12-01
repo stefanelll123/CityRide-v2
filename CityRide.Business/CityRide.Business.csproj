@@ -13,9 +13,4 @@
     <PackageReference Include="FluentValidation" Version="8.5.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CityRide.CrossCuttingConcern\CityRide.CrossCuttingConcern.csproj" />
-    <ProjectReference Include="..\CityRide.Domain\CityRide.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

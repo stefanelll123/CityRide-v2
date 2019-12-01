@@ -1,16 +1,17 @@
-﻿using CityRide.Business.Repositories;
-using CityRide.Data.Context;
-using CityRide.Domain.Entities;
-using EnsureThat;
-using MongoDB.Driver;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CityRide.Data.Repositories
+using EnsureThat;
+using MongoDB.Driver;
+
+using CityRide.Interop.DataAccess.Bike.Repositories;
+using CityRide.Infrastructure;
+
+namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
     public class BikeRepository : IBikeRepository
     {
-        private IMongoCollection<Bike> _bikes;
+        private readonly IMongoCollection<Entities.Bike.Bike> _bikes;
         
         public BikeRepository(DatabaseContext databaseContext)
         {
@@ -19,12 +20,12 @@ namespace CityRide.Data.Repositories
             _bikes = databaseContext.Bikes;
         }
 
-        async Task IBikeRepository.AddAsync(Bike bike)
+        async Task IBikeRepository.AddAsync(Entities.Bike.Bike bike)
         {
             await _bikes.InsertOneAsync(bike);
         }
 
-        async Task<ICollection<Bike>> IBikeRepository.GetAllAsync()
+        async Task<ICollection<Entities.Bike.Bike>> IBikeRepository.GetAllAsync()
         {
             var bikes = await _bikes.FindAsync(x => true);
 

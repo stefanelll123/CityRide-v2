@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Builder;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-using FluentValidation.AspNetCore;
-
-using CityRide.Bootstrap.Bike;
-using CityRide.Infrastructure.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using AutoMapper;
-
-namespace CityRide.WebApi
+namespace CityRide.Web
 {
     public class Startup
     {
@@ -26,18 +26,6 @@ namespace CityRide.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CityRide apis", Version = "v1" });
-            });
-
-            services.AddMvc()
-                    .AddFluentValidation();
-
-            ConfigureMapper(services);
-
-            services.RegisterInfrastructure();
-            services.RegisterBikeModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,30 +36,16 @@ namespace CityRide.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger()
-                .UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CityRide apis");
-                });
-
             app.UseHttpsRedirection();
+
             app.UseRouting();
+
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-        }
-
-        private void ConfigureMapper(IServiceCollection services)
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.RegisterBikeModuleProfiler();
-            });
-
-            services.AddSingleton(typeof(IMapper), config.CreateMapper());
         }
     }
 }
