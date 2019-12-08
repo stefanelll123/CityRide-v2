@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using EnsureThat;
-using System.Threading.Tasks;
-using CityRide.Business.Bikes.ApplicationSerivces.Interfaces;
-using CityRide.Business.Bikes.Models;
+
+using CityRide.Ports.Web.Bike;
+using CityRide.Ports.Web.Bike.Models;
 
 namespace CityRide.WebApi.Controllers
 {
@@ -10,19 +11,19 @@ namespace CityRide.WebApi.Controllers
     [Route("api/v1.0/bikes")]
     public class BikeController : ControllerBase
     {
-        private IBikeApplicationService _bikeApplicationService;
+        private readonly IBikePort _bikePort;
 
-        public BikeController(IBikeApplicationService bikeApplicationService)
+        public BikeController(IBikePort bikePort)
         {
-            EnsureArg.IsNotNull(bikeApplicationService);
+            EnsureArg.IsNotNull(bikePort);
 
-            _bikeApplicationService = bikeApplicationService;
+            _bikePort = bikePort;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddBike([FromBody]BikeModel bikeModel)
         {
-            await _bikeApplicationService.AddBikeAsync(bikeModel);
+            await _bikePort.AddBike(bikeModel);
 
             return Ok();
         }
@@ -30,7 +31,7 @@ namespace CityRide.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBikes()
         {
-            var bikes = await _bikeApplicationService.GetAllBikesAsync();
+            var bikes = await _bikePort.GetAllBikesAsync();
 
             return Ok(bikes);
         }

@@ -1,12 +1,15 @@
-﻿using CityRide.Infrastructure.Configurations;
-using CityRide.Infrastructure.DependencyInjection;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.Hosting;
+
+using FluentValidation.AspNetCore;
+
+using CityRide.Bootstrap.Bike;
+using CityRide.Infrastructure.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using AutoMapper;
 
 namespace CityRide.WebApi
 {
@@ -22,36 +25,53 @@ namespace CityRide.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "CityRide apis", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CityRide apis", Version = "v1" });
             });
 
             services.AddMvc()
-                    .AddFluentValidation()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                    .AddFluentValidation();
 
-            services.RegisterModelValidations();
-            services.RegisterServices();
-            services.RegisterRepositories();
-            services.RegisterMappers();
+            ConfigureMapper(services);
+
+            services.RegisterInfrastructure();
+            services.RegisterBikeModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            app.UseSwagger()
+                .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CityRide apis");
+                });
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CityRide apis");
+                endpoints.MapControllers();
             });
 
-            app.UseMvc();
+        }
+
+        private void ConfigureMapper(IServiceCollection services)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.RegisterBikeModuleProfiler();
+            });
+
+            services.AddSingleton(typeof(IMapper), config.CreateMapper());
         }
     }
 }
