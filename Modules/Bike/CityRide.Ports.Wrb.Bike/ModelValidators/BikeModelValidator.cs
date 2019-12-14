@@ -3,14 +3,15 @@ using FluentValidation;
 
 namespace CityRide.Ports.Web.Bike.ModelValidators
 {
-    public class BikeModelValidator : AbstractValidator<BikeModel>
+    public sealed class BikeModelValidator : AbstractValidator<BikeModel>
     {
-        private int _minLength = 3;
-        private int _maxLength = 32;
+        private readonly int minLength = 3;
+        private readonly int maxLength = 32;
 
         public BikeModelValidator()
         {
-            RuleFor(x => x.Model).NotNull().Length(_minLength, _maxLength);
+            RuleFor(x => x.Id).NotNull();
+            RuleFor(x => x.Model).NotNull().Length(minLength, maxLength);
             RuleFor(x => x.IsActive).NotNull();
         }
     }

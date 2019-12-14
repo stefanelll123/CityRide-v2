@@ -1,8 +1,9 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CityRide.Domain.Bike.ApplicationServices.Interfaces;
+using CityRide.Entities.Bike.Dtos;
 using CityRide.Ports.Web.Bike;
 using CityRide.Ports.Web.Bike.Models;
 using EnsureThat;
@@ -23,7 +24,7 @@ namespace CityRide.Adapters.Web.Bike
             _mapper = mapper;
         }
 
-        async Task IBikePort.AddBike(BikeModel bikeModel)
+        async Task IBikePort.AddBike(BikeCreateModel bikeModel)
         {
             var bike = _mapper.Map<Entities.Bike.Bike>(bikeModel);
             await _bikeApplicationService.AddBikeAsync(bike);
@@ -34,6 +35,13 @@ namespace CityRide.Adapters.Web.Bike
             var bikes = await _bikeApplicationService.GetAllBikesAsync();
 
             return _mapper.Map<ICollection<BikeModel>>(bikes);
+        }
+
+        async Task IBikePort.UpdateBikePosition(Guid id, BikePositionModel bikePositionModel)
+        {
+            var bikePositionDto = _mapper.Map<BikePositionDto>(bikePositionModel);
+
+            await _bikeApplicationService.UpdateBikePosition(id, bikePositionDto);
         }
     }
 }
