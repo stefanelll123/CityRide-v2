@@ -14,6 +14,6 @@ namespace CityRide.Interop.DataAccess.Bike.Repositories
 
         Task UpdateBike(Entities.Bike.Bike bike);
 
-        ////Task<ICollection<Entities.Bike.Bike>>
+        Task Borrow(Entities.Bike.Bike bike);
     }
 }

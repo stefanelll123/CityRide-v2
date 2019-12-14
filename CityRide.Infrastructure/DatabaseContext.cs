@@ -8,6 +8,8 @@ namespace CityRide.Infrastructure
     {
         public IMongoCollection<Bike> Bikes { get; private set; }
 
+        public IMongoCollection<Borrow> Borrow { get; private set; }
+
         public DatabaseContext(IConfiguration config)
         {
             var connectionString = config.GetSection("ConnectionStrings").Value;
@@ -17,6 +19,7 @@ namespace CityRide.Infrastructure
             var bikeDatabase = client.GetDatabase(bikeDatabaseName);
 
             Bikes = bikeDatabase.GetCollection<Bike>("Bike");
+            Borrow = bikeDatabase.GetCollection<Borrow>("Borrow");
         }
     }
 }
