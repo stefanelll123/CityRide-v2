@@ -6,7 +6,7 @@ namespace CityRide.Entities.Bike
 {
     public abstract class BaseEntity
     {
-        public BaseEntity()
+        protected BaseEntity()
         {
             Id = Guid.NewGuid();
         }

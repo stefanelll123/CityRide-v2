@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using CityRide.Entities.Bike.Dtos;
 using CityRide.Ports.Web.Bike.Models;
+
+using AutoMapper;
 
 namespace CityRide.Adapters.Web.Bike
 {
@@ -9,6 +11,12 @@ namespace CityRide.Adapters.Web.Bike
         {
             config.CreateMap<BikeModel, Entities.Bike.Bike>();
             config.CreateMap<Entities.Bike.Bike, BikeModel>();
+
+            config.CreateMap<BikeCreateModel, Entities.Bike.Bike>();
+            config.CreateMap<Entities.Bike.Bike, BikeCreateModel>();
+
+            config.CreateMap<BikePositionDto, BikePositionModel>();
+            config.CreateMap<BikePositionModel, BikePositionDto>();
         }
     }
 }

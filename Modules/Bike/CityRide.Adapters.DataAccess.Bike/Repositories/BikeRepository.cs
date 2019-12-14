@@ -6,18 +6,26 @@ using MongoDB.Driver;
 
 using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Infrastructure;
+using System;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
     public class BikeRepository : IBikeRepository
     {
         private readonly IMongoCollection<Entities.Bike.Bike> _bikes;
-        
+
         public BikeRepository(DatabaseContext databaseContext)
         {
             EnsureArg.IsNotNull(databaseContext);
 
             _bikes = databaseContext.Bikes;
+        }
+
+        public async Task<Entities.Bike.Bike> GetBikeBy(Guid id)
+        {
+            var bike = await _bikes.FindAsync(x => x.Id == id);
+
+            return bike.FirstOrDefault();
         }
 
         async Task IBikeRepository.AddAsync(Entities.Bike.Bike bike)
@@ -30,6 +38,11 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
             var bikes = await _bikes.FindAsync(x => true);
 
             return bikes.ToList();
+        }
+
+        public async Task UpdateBike(Entities.Bike.Bike bike)
+        {
+            await _bikes.FindOneAndReplaceAsync(x => x.Id == bike.Id, bike);
         }
     }
 }

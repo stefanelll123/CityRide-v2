@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EnsureThat;
 
@@ -20,12 +21,10 @@ namespace CityRide.WebApi.Controllers
             _bikePort = bikePort;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddBike([FromBody]BikeModel bikeModel)
+        [HttpGet("position")]
+        public Task<IActionResult> GetBikesByPosition([FromQuery(Name = "latitude")] double latitude, [FromQuery(Name = "longitude")] double longitude)
         {
-            await _bikePort.AddBike(bikeModel);
-
-            return Ok();
+            throw new NotImplementedException();
         }
 
         [HttpGet]
@@ -34,6 +33,22 @@ namespace CityRide.WebApi.Controllers
             var bikes = await _bikePort.GetAllBikesAsync();
 
             return Ok(bikes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBike([FromBody]BikeCreateModel bikeModel)
+        {
+            await _bikePort.AddBike(bikeModel);
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBikePosition([FromRoute] Guid id, [FromBody] BikePositionModel bikePositionModel)
+        {
+            await _bikePort.UpdateBikePosition(id, bikePositionModel);
+
+            return Ok();
         }
     }
 }
