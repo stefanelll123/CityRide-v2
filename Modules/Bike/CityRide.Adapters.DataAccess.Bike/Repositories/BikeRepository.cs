@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Infrastructure;
 using System;
+using CityRide.Entities.Bike;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {

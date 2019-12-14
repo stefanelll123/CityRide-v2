@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://172.20.10.2:5008/",
+      "applicationUrl": "http://172.20.10.2:5009/",
       "sslPort": 0
     },
     "iisExpress": {
@@ -16,7 +16,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://172.20.10.2:5008/"
+      "applicationUrl": "http://localhost:6005/"
     },
     "IIS Express": {
       "commandName": "IISExpress"

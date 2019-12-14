@@ -14,7 +14,6 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
     public class BikeApplicationService : IBikeApplicationService
     {
         private readonly IBikeRepository _bikeRepository;
-
         private readonly IBorrowRepository _borrowRepository;
 
         public BikeApplicationService(IBikeRepository bikeRepository, IBorrowRepository borrowRepository)
