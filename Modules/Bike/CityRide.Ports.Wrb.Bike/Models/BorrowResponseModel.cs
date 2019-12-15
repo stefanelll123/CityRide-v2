@@ -1,9 +1,9 @@
-﻿using System;
-
-namespace CityRide.Ports.Web.Bike.Models
+﻿namespace CityRide.Ports.Web.Bike.Models
 {
-    public class BorrowModel
+    public class BorrowResponseModel
     {
-        public Guid BikeId { get; private set; }
+        public bool Found { get; set; }
+
+        public bool Borrowable { get; set; }
     }
 }
