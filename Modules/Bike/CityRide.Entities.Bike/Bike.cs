@@ -1,6 +1,7 @@
-﻿using CityRide.Entities.Bike.Dtos;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+
+using CityRide.Entities.Bike.Dtos;
 
 namespace CityRide.Entities.Bike
 {

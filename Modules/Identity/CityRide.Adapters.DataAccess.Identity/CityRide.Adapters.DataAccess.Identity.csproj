@@ -1,19 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ensure.That" Version="8.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\CityRide.Infrastructure\CityRide.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\CityRide.Interop.DataAccess.Bike\CityRide.Interop.DataAccess.Bike.csproj" />
-    <ProjectReference Include="..\CityRide.Entities.Bike\CityRide.Entities.Bike.csproj" />
+    <ProjectReference Include="..\CityRide.Entities.Identity\CityRide.Entities.Identity.csproj" />
+    <ProjectReference Include="..\CityRide.Interop.DataAccess.Identity\CityRide.Interop.DataAccess.Identity.csproj" />
   </ItemGroup>
 
 </Project>

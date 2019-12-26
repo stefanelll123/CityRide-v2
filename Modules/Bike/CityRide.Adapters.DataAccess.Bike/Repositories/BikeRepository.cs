@@ -10,7 +10,7 @@ using System;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
-    public class BikeRepository : IBikeRepository
+    internal sealed class BikeRepository : IBikeRepository
     {
         private readonly IMongoCollection<Entities.Bike.Bike> _bikes;
 

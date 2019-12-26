@@ -6,14 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="FluentValidation" Version="8.5.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modules\Bike\CityRide.Entities.Bike\CityRide.Entities.Bike.csproj" />
-    <ProjectReference Include="..\Modules\Identity\CityRide.Entities.Identity\CityRide.Entities.Identity.csproj" />
+    <ProjectReference Include="..\..\..\CityRide.Infrastructure\CityRide.Infrastructure.csproj" />
+    <ProjectReference Include="..\CityRide.Domain.Identity\CityRide.Domain.Identity.csproj" />
+    <ProjectReference Include="..\CityRide.Entities.Identity\CityRide.Entities.Identity.csproj" />
+    <ProjectReference Include="..\CityRide.Ports.Web.Identity\CityRide.Ports.Web.Identity.csproj" />
   </ItemGroup>
 
 </Project>

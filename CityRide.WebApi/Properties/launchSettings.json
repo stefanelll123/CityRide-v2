@@ -16,7 +16,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://172.20.10.2:5008/"
+      "applicationUrl": "http://localhost:5008/"
     },
     "IIS Express": {
       "commandName": "IISExpress"

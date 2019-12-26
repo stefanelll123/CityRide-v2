@@ -10,6 +10,7 @@ using CityRide.Bootstrap.Bike;
 using CityRide.Infrastructure.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using CityRide.Bootstrap.Identity;
 
 namespace CityRide.WebApi
 {
@@ -37,7 +38,9 @@ namespace CityRide.WebApi
             ConfigureMapper(services);
 
             services.RegisterInfrastructure();
+
             services.RegisterBikeModule();
+            services.RegisterIdentityModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +72,7 @@ namespace CityRide.WebApi
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.RegisterBikeModuleProfiler();
+                cfg.RegisterIdentityModuleProfiler();
             });
 
             services.AddSingleton(typeof(IMapper), config.CreateMapper());

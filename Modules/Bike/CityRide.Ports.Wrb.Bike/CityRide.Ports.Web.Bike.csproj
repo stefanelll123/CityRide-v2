@@ -8,4 +8,8 @@
     <PackageReference Include="FluentValidation" Version="8.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CityRide.Infrastructure\CityRide.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

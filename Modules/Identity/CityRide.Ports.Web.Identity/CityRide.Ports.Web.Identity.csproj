@@ -5,15 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="FluentValidation" Version="8.5.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\CityRide.Infrastructure\CityRide.Infrastructure.csproj" />
-    <ProjectReference Include="..\CityRide.Domain.Bike\CityRide.Domain.Bike.csproj" />
-    <ProjectReference Include="..\CityRide.Entities.Bike\CityRide.Entities.Bike.csproj" />
-    <ProjectReference Include="..\CityRide.Ports.Wrb.Bike\CityRide.Ports.Web.Bike.csproj" />
   </ItemGroup>
 
 </Project>
