@@ -1,6 +1,6 @@
-﻿namespace CityRide.Ports.Web.Identity.Models
+﻿namespace CityRide.Entities.Identity.Dtos
 {
-    public class UserAuthentificationModel
+    public sealed class UserAuthenticationDto
     {
         public string Email { get; set; }
 

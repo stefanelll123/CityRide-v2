@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using EnsureThat;
@@ -6,7 +7,6 @@ using MongoDB.Driver;
 
 using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Infrastructure;
-using System;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {

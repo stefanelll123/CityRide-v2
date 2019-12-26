@@ -9,20 +9,20 @@ using CityRide.Ports.Web.Identity.Models;
 namespace CityRide.WebApi.Controllers.Identity
 {
     [ApiController]
-    [Route("api/v1.0/credentials")]
-    public class CredentialsController : ControllerBase
+    [Route("api/v1.0/register")]
+    public class RegisterController : ControllerBase
     {
-        private readonly IIdentityPort _identityPort;
+        private readonly IRegisterPort _registerPort;
 
-        public CredentialsController(IIdentityPort identityPort)
+        public RegisterController(IRegisterPort registerPort)
         {
-            _identityPort = identityPort;
+            _registerPort = registerPort;
         }
 
         [HttpPost]
         public async Task<Result> CreateUser([FromBody]CreateUserModel createUserModel)
         {
-            return await _identityPort.CreateUser(createUserModel);
+            return await _registerPort.CreateUser(createUserModel);
         }
     }
 }

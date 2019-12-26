@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CityRide.Ports.Web.Identity.ModelValidators
 {
-    public class CreateUserModelValidator : AbstractValidator<UserAuthentificationModel>
+    public class CreateUserModelValidator : AbstractValidator<UserAuthenticationModel>
     {
         private readonly int passwordMinLength = 12;
 

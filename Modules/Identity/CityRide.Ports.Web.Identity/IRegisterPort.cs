@@ -5,7 +5,7 @@ using CityRide.Ports.Web.Identity.Models;
 
 namespace CityRide.Ports.Web.Identity
 {
-    public interface IIdentityPort
+    public interface IRegisterPort
     {
         Task<Result> CreateUser(CreateUserModel createUserModel);
     }

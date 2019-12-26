@@ -61,7 +61,16 @@ namespace CityRide.Domain.Identity {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user with the email address {1} already exists..
+        ///   Looks up a localized string similar to This email and password combination doesn&apos;t exist..
+        /// </summary>
+        internal static string Unauthorized {
+            get {
+                return ResourceManager.GetString("Unauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user with the email address {0} already exists..
         /// </summary>
         internal static string UserAlreadyExists {
             get {

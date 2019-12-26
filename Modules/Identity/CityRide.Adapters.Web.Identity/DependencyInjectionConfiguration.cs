@@ -1,4 +1,5 @@
-﻿using CityRide.Ports.Web.Identity;
+﻿using CityRide.Adapters.Web.Identity.Ports;
+using CityRide.Ports.Web.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CityRide.Adapters.Web.Identity
@@ -7,7 +8,8 @@ namespace CityRide.Adapters.Web.Identity
     {
         public static void RegisterIdentityAdapters(this IServiceCollection service)
         {
-            service.AddScoped<IIdentityPort, IdentityPort>();
+            service.AddScoped<IRegisterPort, RegisterPort>();
+            service.AddScoped<IAuthenticationPort, AuthenticationPort>();
         }
     }
 }
