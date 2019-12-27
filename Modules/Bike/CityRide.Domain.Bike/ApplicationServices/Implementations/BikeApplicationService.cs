@@ -7,6 +7,7 @@ using CityRide.Entities.Bike;
 using CityRide.Entities.Bike.Dtos;
 using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Ports.Web.Bike.Models;
+
 using EnsureThat;
 
 namespace CityRide.Domain.Bike.ApplicationServices.Implementations
@@ -48,28 +49,20 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
         async Task<BorrowResponseModel> IBikeApplicationService.Borrow(Guid bikeId)
         {
             var bike = await _bikeRepository.GetBikeBy(bikeId);
-            var responseModel = new BorrowResponseModel
-            {
-                Borrowable = false,
-                Found = false
-            };
+            var responseModel = new BorrowResponseModel();
 
             if (bike != null)
             {
-                responseModel.Found = true;
+                responseModel.MarkAsFound();
 
                 if (bike.IsActive)
                 {
-                    responseModel.Borrowable = true;
+                    responseModel.MarkAsBorrowable();
                     bike.BorrowBike();
 
                     await _borrowRepository.AddBorrow(Borrow.Create(bikeId));
                     await _bikeRepository.UpdateBike(bike);
-
-                    return responseModel;
                 }
-
-                responseModel.Borrowable = false;
             }
 
             return responseModel;

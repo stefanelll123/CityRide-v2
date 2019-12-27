@@ -10,7 +10,7 @@ using CityRide.Entities.Bike;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
-    public class BorrowRepository : IBorrowRepository
+    public sealed class BorrowRepository : IBorrowRepository
     {
         private readonly IMongoCollection<Entities.Bike.Borrow> _borrows;
 

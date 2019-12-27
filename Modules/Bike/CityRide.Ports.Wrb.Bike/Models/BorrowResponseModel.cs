@@ -1,9 +1,21 @@
-﻿namespace CityRide.Ports.Web.Bike.Models
+﻿using System;
+
+namespace CityRide.Ports.Web.Bike.Models
 {
     public class BorrowResponseModel
     {
-        public bool Found { get; set; }
+        public BorrowResponseModel()
+        {
+            Found = false;
+            Borrowable = false;
+        }
 
-        public bool Borrowable { get; set; }
+        public bool Found { get; private set; }
+
+        public bool Borrowable { get; private set; }
+
+        public void MarkAsFound() => Found = true;
+
+        public void MarkAsBorrowable() => Borrowable = true;
     }
 }
