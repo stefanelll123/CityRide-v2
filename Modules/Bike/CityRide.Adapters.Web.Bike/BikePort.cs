@@ -10,7 +10,7 @@ using EnsureThat;
 
 namespace CityRide.Adapters.Web.Bike
 {
-    public sealed class BikePort : IBikePort
+    internal sealed class BikePort : IBikePort
     {
         private readonly IBikeApplicationService _bikeApplicationService;
         private readonly IMapper _mapper;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using CityRide.Bootstrap.Bike;
 using CityRide.Infrastructure.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using CityRide.Bootstrap.Identity;
 
 namespace CityRide.WebApi
 {
@@ -29,6 +31,24 @@ namespace CityRide.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CityRide apis", Version = "v1" });
+                c.AddSecurityDefinition("Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        In = ParameterLocation.Header,
+                        Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey
+                    });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new[] { "readAccess", "writeAccess" }
+                    }
+                });
             });
 
             services.AddMvc()
@@ -37,7 +57,9 @@ namespace CityRide.WebApi
             ConfigureMapper(services);
 
             services.RegisterInfrastructure();
+
             services.RegisterBikeModule();
+            services.RegisterIdentityModule(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +70,7 @@ namespace CityRide.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseSwagger()
                 .UseSwaggerUI(c =>
                 {
@@ -69,6 +92,7 @@ namespace CityRide.WebApi
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.RegisterBikeModuleProfiler();
+                cfg.RegisterIdentityModuleProfiler();
             });
 
             services.AddSingleton(typeof(IMapper), config.CreateMapper());

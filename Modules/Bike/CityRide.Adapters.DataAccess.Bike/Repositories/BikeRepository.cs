@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 
 using EnsureThat;
 using MongoDB.Driver;
@@ -10,7 +10,7 @@ using CityRide.Infrastructure;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
-    public class BikeRepository : IBikeRepository
+    internal sealed class BikeRepository : IBikeRepository
     {
         private readonly IMongoCollection<Entities.Bike.Bike> _bikes;
 

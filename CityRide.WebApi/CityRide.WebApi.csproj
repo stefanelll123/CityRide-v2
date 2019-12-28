@@ -23,6 +23,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CityRide.Infrastructure\CityRide.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Bike\CityRide.Bootstrap.Bike\CityRide.Bootstrap.Bike.csproj" />
+    <ProjectReference Include="..\Modules\Identity\CityRide.Bootstrap.Identity\CityRide.Bootstrap.Identity.csproj" />
+    <ProjectReference Include="..\Modules\Identity\CityRide.Ports.Web.Identity\CityRide.Ports.Web.Identity.csproj" />
   </ItemGroup>
 
 </Project>

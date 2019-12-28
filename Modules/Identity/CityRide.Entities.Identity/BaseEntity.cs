@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace CityRide.Entities.Bike
+namespace CityRide.Entities.Identity
 {
     public abstract class BaseEntity
     {

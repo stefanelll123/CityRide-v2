@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using EnsureThat;
 
 using CityRide.Ports.Web.Bike;
@@ -8,6 +11,7 @@ using CityRide.Ports.Web.Bike.Models;
 
 namespace CityRide.WebApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/v1.0/bikes")]
     public class BikeController : ControllerBase
