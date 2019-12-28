@@ -35,6 +35,11 @@ namespace CityRide.Entities.Bike
             Longitude = bikePositionDto.Longitude;
         }
 
+        public void BorrowBike()
+        {
+            this.IsActive = false;
+        }
+
         public static Bike Create(string model, long latitude, long longitude)
         {
             return new Bike(model, latitude, longitude);
