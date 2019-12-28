@@ -24,6 +24,11 @@ namespace CityRide.Adapters.Web.Bike
             _mapper = mapper;
         }
 
+        public async Task<BorrowResponseModel> Borrow(Guid bikeId)
+        {
+            return await _bikeApplicationService.Borrow(bikeId);
+        }
+
         async Task IBikePort.AddBike(BikeCreateModel bikeModel)
         {
             var bike = _mapper.Map<Entities.Bike.Bike>(bikeModel);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using CityRide.Entities.Bike.Dtos;
+using CityRide.Ports.Web.Bike.Models;
 
 namespace CityRide.Domain.Bike.ApplicationServices.Interfaces
 {
@@ -13,5 +14,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Interfaces
         Task<ICollection<Entities.Bike.Bike>> GetAllBikesAsync();
 
         Task UpdateBikePosition(Guid bikeId, BikePositionDto bikePositionDto);
+
+        Task<BorrowResponseModel> Borrow(Guid bikeId);
     }
 }

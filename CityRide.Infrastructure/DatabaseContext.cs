@@ -10,6 +10,8 @@ namespace CityRide.Infrastructure
     {
         public IMongoCollection<Bike> Bikes { get; private set; }
 
+        public IMongoCollection<Borrow> Borrow { get; private set; }
+
         public IMongoCollection<User> Users { get; private set; }
 
         public DatabaseContext(IConfiguration config)
@@ -20,7 +22,7 @@ namespace CityRide.Infrastructure
             var bikeDatabaseName = config.GetSection("BikeModuleName").Value;
             var bikeDatabase = client.GetDatabase(bikeDatabaseName);
             Bikes = bikeDatabase.GetCollection<Bike>("Bike");
-
+            Borrow = bikeDatabase.GetCollection<Borrow>("Borrow");
 
             var identityDatabaseName = config.GetSection("IdentityModuleName").Value;
             var identityDatabase = client.GetDatabase(identityDatabaseName);

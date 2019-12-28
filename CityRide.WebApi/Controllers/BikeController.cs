@@ -54,6 +54,14 @@ namespace CityRide.WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpPost("borrow/{id}")]
+        public async Task<IActionResult> BorrowBike([FromRoute] Guid id)
+        {
+            var response = await _bikePort.Borrow(id);
+
+            return Ok(response);
+        }
     }
 }
 
