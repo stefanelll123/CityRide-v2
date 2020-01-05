@@ -51,6 +51,8 @@ namespace CityRide.WebApi
                 });
             });
 
+            services.AddCors();
+
             services.AddMvc()
                     .AddFluentValidation();
 
@@ -78,7 +80,8 @@ namespace CityRide.WebApi
                 });
 
             app.UseHttpsRedirection();
-            app.UseRouting();
+            app.UseRouting(); 
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
