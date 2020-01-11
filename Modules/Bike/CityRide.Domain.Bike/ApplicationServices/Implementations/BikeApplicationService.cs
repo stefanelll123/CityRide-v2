@@ -12,7 +12,7 @@ using EnsureThat;
 
 namespace CityRide.Domain.Bike.ApplicationServices.Implementations
 {
-    public class BikeApplicationService : IBikeApplicationService
+    internal sealed class BikeApplicationService : IBikeApplicationService
     {
         private readonly IBikeRepository _bikeRepository;
         private readonly IBorrowRepository _borrowRepository;
@@ -49,7 +49,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             await _bikeRepository.UpdateBike(bike);
         }
 
-        async Task<BorrowResponseModel> IBikeApplicationService.Borrow(Guid bikeId)
+        async Task<BorrowResponseModel> IBikeApplicationService.Borrow(Guid bikeId, Guid userId)
         {
             var bike = await _bikeRepository.GetBikeBy(bikeId);
             var responseModel = new BorrowResponseModel();
@@ -63,7 +63,9 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
                     responseModel.MarkAsBorrowable();
                     bike.BorrowBike();
 
-                    await _borrowRepository.AddBorrow(Borrow.Create(bikeId));
+                    var price = _priceRepository.GetLastPrice();
+
+                    await _borrowRepository.AddBorrow(Borrow.Create(bikeId, userId, price.Id));
                     await _bikeRepository.UpdateBike(bike);
                 }
             }

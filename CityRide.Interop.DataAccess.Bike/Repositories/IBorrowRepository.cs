@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using CityRide.Entities.Bike;
+
 namespace CityRide.Interop.DataAccess.Bike.Repositories
 {
     public interface IBorrowRepository
@@ -12,5 +14,7 @@ namespace CityRide.Interop.DataAccess.Bike.Repositories
         Task<Entities.Bike.Borrow> GetBorrowByBikeId(Guid bikeId);
 
         Task UpdateBorrow(Entities.Bike.Borrow borrow);
+
+        Borrow GetBorrowBy(Guid userId);
     }
 }

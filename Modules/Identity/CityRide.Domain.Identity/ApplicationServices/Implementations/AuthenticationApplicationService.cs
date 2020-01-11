@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,7 +51,10 @@ namespace CityRide.Domain.Identity.ApplicationServices.Implementations
 
             var token = new JwtSecurityToken(_config["JwtOptions:Issuer"],
                 _config["JwtOptions:Issuer"],
-                null,
+                new List<Claim>()
+                {
+                    new Claim("userId", user.Id.ToString())
+                },
                 expires: DateTime.Now.AddHours(hours),
                 signingCredentials: credentials);
 

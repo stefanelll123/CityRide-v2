@@ -17,6 +17,9 @@ namespace CityRide.Adapters.Web.Bike
 
             config.CreateMap<BikePositionDto, BikePositionModel>();
             config.CreateMap<BikePositionModel, BikePositionDto>();
+
+            config.CreateMap<UserBorrowModel, UserBorrowDto>();
+            config.CreateMap<UserBorrowDto, UserBorrowModel>();
         }
     }
 }
