@@ -48,5 +48,10 @@ namespace CityRide.Adapters.Web.Bike
 
             await _bikeApplicationService.UpdateBikePosition(id, bikePositionDto);
         }
+
+        async Task<ReturnBikeResponseModel> IBikePort.Return(Guid bikeId)
+        {
+            return await _bikeApplicationService.Return(bikeId);
+        }
     }
 }

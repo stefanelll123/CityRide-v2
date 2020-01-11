@@ -44,5 +44,13 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
         {
             await _bikes.FindOneAndReplaceAsync(x => x.Id == bike.Id, bike);
         }
+
+        public async Task SetActive(Guid id)
+        {
+            var filter = Builders<Entities.Bike.Bike>.Filter.Eq("_id", id);
+            var update = Builders<Entities.Bike.Bike>.Update.Set("IsActive", true);
+
+            await _bikes.UpdateOneAsync(filter, update);
+        }
     }
 }

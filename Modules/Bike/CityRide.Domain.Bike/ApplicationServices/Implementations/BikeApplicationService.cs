@@ -16,14 +16,17 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
     {
         private readonly IBikeRepository _bikeRepository;
         private readonly IBorrowRepository _borrowRepository;
+        private readonly IPriceRepository _priceRepository;
 
-        public BikeApplicationService(IBikeRepository bikeRepository, IBorrowRepository borrowRepository)
+        public BikeApplicationService(IBikeRepository bikeRepository, IBorrowRepository borrowRepository, IPriceRepository priceRepository)
         {
             EnsureArg.IsNotNull(bikeRepository);
             EnsureArg.IsNotNull(borrowRepository);
+            EnsureArg.IsNotNull(priceRepository);
 
             _bikeRepository = bikeRepository;
             _borrowRepository = borrowRepository;
+            _priceRepository = priceRepository;
         }
 
         async Task IBikeApplicationService.AddBikeAsync(Entities.Bike.Bike bike)
@@ -66,6 +69,23 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             }
 
             return responseModel;
+        }
+
+        async Task<ReturnBikeResponseModel> IBikeApplicationService.Return(Guid bikeId)
+        {
+            var price = await _priceRepository.GetValue();
+            var borrowHours = await _borrowRepository.GetBorrowHours(bikeId);
+
+            if (price == -1 || borrowHours == -1)
+            {
+                return null;
+            }
+
+            var returnBikeResponseModel = new ReturnBikeResponseModel(borrowHours, price);
+
+            await _bikeRepository.SetActive(bikeId);
+
+            return returnBikeResponseModel;
         }
     }
 }

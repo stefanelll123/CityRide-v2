@@ -10,6 +10,7 @@ namespace CityRide.Adapters.DataAccess.Bike
         {
             service.AddScoped<IBikeRepository, BikeRepository>();
             service.AddScoped<IBorrowRepository, BorrowRepository>();
+            service.AddScoped<IPriceRepository, PriceRepository>();
         }
     }
 }
