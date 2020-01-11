@@ -53,7 +53,7 @@ namespace CityRide.Domain.Identity.ApplicationServices.Implementations
                 expires: DateTime.Now.AddHours(hours),
                 signingCredentials: credentials);
 
-            return AuthenticationDto.Create(user.FullName, new JwtSecurityTokenHandler().WriteToken(token));
+            return AuthenticationDto.Create(user.FullName, new JwtSecurityTokenHandler().WriteToken(token), user.Email);
         }
     }
 }

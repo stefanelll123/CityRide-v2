@@ -12,6 +12,7 @@ namespace CityRide.Adapters.Web.Identity
         {
             config.CreateMap<CreateUserModel, User>();
             config.CreateMap<UserAuthenticationModel, UserAuthenticationDto>();
+            config.CreateMap<AuthenticationDto, AuthenticationModel>();
         }
     }
 }

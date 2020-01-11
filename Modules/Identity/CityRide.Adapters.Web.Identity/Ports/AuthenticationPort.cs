@@ -22,8 +22,11 @@ namespace CityRide.Adapters.Web.Identity.Ports
         async Task<Result> IAuthenticationPort.Login(UserAuthenticationModel userAuthenticationModel)
         {
             var userAuthentication = _mapper.Map<UserAuthenticationDto>(userAuthenticationModel);
+            var result = await Result.Ok()
+                                .And(async () => await _authenticationApplicationService.Login(userAuthentication))
+                                .Map<AuthenticationDto, AuthenticationModel>((data) => _mapper.Map<AuthenticationModel>(data));
 
-            return await _authenticationApplicationService.Login(userAuthentication);
+            return result;
         }
     }
 }
