@@ -6,6 +6,8 @@ using MongoDB.Driver;
 using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Infrastructure;
 using System.Linq;
+using System;
+using CityRide.Entities.Price;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
@@ -20,9 +22,9 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
             _prices = databaseContext.Price;
         }
 
-        public async Task<double> GetValue()
+        async Task<double> IPriceRepository.GetValue()
         {
-            var pricesList = await _prices.Find(x => x.StartDate != null)
+            var pricesList = await _prices.Find(x => true)
                 .SortByDescending(x => x.StartDate).ToListAsync();
             var currentPrice = pricesList.FirstOrDefault();
             double value = -1;
@@ -33,6 +35,17 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
             }
 
             return value;
+        }
+
+        Price IPriceRepository.GetPriceBy(Guid id)
+        {
+            return _prices.Find(x => x.Id == id).FirstOrDefault();
+        }
+
+        Price IPriceRepository.GetLastPrice()
+        {
+            return _prices.Find(x => true)
+                .SortByDescending(x => x.StartDate).FirstOrDefault();
         }
     }
 }

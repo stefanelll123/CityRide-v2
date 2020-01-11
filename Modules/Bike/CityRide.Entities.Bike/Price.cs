@@ -5,7 +5,7 @@ using System;
 
 namespace CityRide.Entities.Price
 {
-    public class Price : BaseEntity
+    public sealed class Price : BaseEntity
     {
         private Price(double value)
         {

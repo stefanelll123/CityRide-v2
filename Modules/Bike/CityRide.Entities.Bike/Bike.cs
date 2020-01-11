@@ -5,7 +5,7 @@ using CityRide.Entities.Bike.Dtos;
 
 namespace CityRide.Entities.Bike
 {
-    public class Bike : BaseEntity
+    public sealed class Bike : BaseEntity
     {
         private Bike(string model, double? latitude, double? longitude)
         {

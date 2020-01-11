@@ -9,6 +9,7 @@ namespace CityRide.Domain.Bike
         public static void RegisterBikeBusinessLogic(this IServiceCollection service)
         {
             service.AddScoped<IBikeApplicationService, BikeApplicationService>();
+            service.AddScoped<IBorrowApplicationService, BorrowApplicationService>();
         }
     }
 }
