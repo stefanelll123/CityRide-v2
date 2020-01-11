@@ -16,5 +16,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Interfaces
         Task UpdateBikePosition(Guid bikeId, BikePositionDto bikePositionDto);
 
         Task<BorrowResponseModel> Borrow(Guid bikeId);
+
+        Task<ReturnBikeResponseModel> Return(Guid bikeId);
     }
 }

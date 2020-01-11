@@ -62,6 +62,19 @@ namespace CityRide.WebApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("return/{id}")]
+        public async Task<IActionResult> ReturnBike([FromRoute] Guid id)
+        {
+            var response = await _bikePort.Return(id);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
     }
 }
 

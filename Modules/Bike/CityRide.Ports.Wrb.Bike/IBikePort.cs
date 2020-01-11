@@ -14,5 +14,7 @@ namespace CityRide.Ports.Web.Bike
         Task UpdateBikePosition(Guid id, BikePositionModel bikePositionModel);
 
         Task<BorrowResponseModel> Borrow(Guid bikeId);
+
+        Task<ReturnBikeResponseModel> Return(Guid bikeId);
     }
 }
