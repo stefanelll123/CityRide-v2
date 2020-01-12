@@ -9,6 +9,8 @@ namespace CityRide.Ports.Web.Bike
     {
         Task AddBike(BikeCreateModel bikeModel);
 
+        Task<ICollection<BikeModel>> GetBikesByPosition(double latitude, double longitude);
+
         Task<ICollection<BikeModel>> GetAllBikesAsync();
 
         Task UpdateBikePosition(Guid id, BikePositionModel bikePositionModel);
