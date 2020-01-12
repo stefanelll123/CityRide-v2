@@ -9,12 +9,12 @@ using EnsureThat;
 using CityRide.Ports.Web.Bike;
 using CityRide.Ports.Web.Bike.Models;
 
-namespace CityRide.WebApi.Controllers
+namespace CityRide.WebApi.Controllers.Bike
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/v1.0/bikes")]
-    public class BikeController : ControllerBase
+    public class BikeController : BaseController
     {
         private readonly IBikePort _bikePort;
 
@@ -71,8 +71,13 @@ namespace CityRide.WebApi.Controllers
         [HttpPost("return/{id}")]
         public async Task<IActionResult> ReturnBike([FromRoute] Guid id)
         {
-            var response = await _bikePort.Return(id);
+            var userId = GetRequestUserId();
+            if(userId == null)
+            {
+                return Unauthorized();
+            }
 
+            var response = await _bikePort.Return(id, userId.Value);
             if (response == null)
             {
                 return NotFound();
@@ -110,13 +115,6 @@ namespace CityRide.WebApi.Controllers
 
             var userBorrowModelList = await _bikePort.GetUserBorrowHistory(userId.Value);
             return Ok(userBorrowModelList);
-        }
-
-        private Guid? GetRequestUserId()
-        {
-            var userId = new Guid(HttpContext.User.FindFirst("UserId").Value);
-
-            return userId;
         }
     }
 }

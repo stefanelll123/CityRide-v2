@@ -17,7 +17,7 @@ namespace CityRide.Ports.Web.Bike
 
         Task<BorrowResponseModel> Borrow(Guid bikeId, Guid userId);
 
-        Task<ReturnBikeResponseModel> Return(Guid bikeId);
+        Task<ReturnBikeResponseModel> Return(Guid bikeId, Guid userId);
 
         Task<UserBorrowModel> GetBikeBorrowedByUser(Guid userId);
 

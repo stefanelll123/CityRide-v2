@@ -53,9 +53,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CityRide.Bootstrap.Identity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CityRide.Adapters.Web.Identity", "Modules\Identity\CityRide.Adapters.Web.Identity\CityRide.Adapters.Web.Identity.csproj", "{E8BA1561-9AEC-4706-A879-F97CC7E611FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityRide.Adapters.DataAccess.Identity", "Modules\Identity\CityRide.Adapters.DataAccess.Identity\CityRide.Adapters.DataAccess.Identity.csproj", "{0089DE95-3584-4DC6-9E75-4D89A77B65C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CityRide.Adapters.DataAccess.Identity", "Modules\Identity\CityRide.Adapters.DataAccess.Identity\CityRide.Adapters.DataAccess.Identity.csproj", "{0089DE95-3584-4DC6-9E75-4D89A77B65C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityRide.Interop.DataAccess.Identity", "Modules\Identity\CityRide.Interop.DataAccess.Identity\CityRide.Interop.DataAccess.Identity.csproj", "{1C41A6BB-008C-4651-95F0-747BC144DE09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CityRide.Interop.DataAccess.Identity", "Modules\Identity\CityRide.Interop.DataAccess.Identity\CityRide.Interop.DataAccess.Identity.csproj", "{1C41A6BB-008C-4651-95F0-747BC144DE09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityRide.Interop.Identity.Bike", "Modules\Bike\CityRide.Interop.Identity.Bike\CityRide.Interop.Identity.Bike.csproj", "{19564F19-F066-4AF8-B6F1-77340251B089}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -283,6 +285,18 @@ Global
 		{1C41A6BB-008C-4651-95F0-747BC144DE09}.Release|x64.Build.0 = Release|Any CPU
 		{1C41A6BB-008C-4651-95F0-747BC144DE09}.Release|x86.ActiveCfg = Release|Any CPU
 		{1C41A6BB-008C-4651-95F0-747BC144DE09}.Release|x86.Build.0 = Release|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Debug|x64.Build.0 = Debug|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Debug|x86.Build.0 = Debug|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Release|x64.ActiveCfg = Release|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Release|x64.Build.0 = Release|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Release|x86.ActiveCfg = Release|Any CPU
+		{19564F19-F066-4AF8-B6F1-77340251B089}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -311,6 +325,7 @@ Global
 		{E8BA1561-9AEC-4706-A879-F97CC7E611FF} = {D053E626-FA7A-4A4A-AA0D-8342852C3728}
 		{0089DE95-3584-4DC6-9E75-4D89A77B65C1} = {B967302C-9957-49E8-9C47-7AF991A7B2F2}
 		{1C41A6BB-008C-4651-95F0-747BC144DE09} = {B967302C-9957-49E8-9C47-7AF991A7B2F2}
+		{19564F19-F066-4AF8-B6F1-77340251B089} = {688DB2B1-8F16-464D-AAC3-FBACC497587F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4237A1E8-9FAA-45F9-A3DE-A304DE1F5AC7}

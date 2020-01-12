@@ -4,11 +4,11 @@ namespace CityRide.Ports.Web.Bike.Models
 {
     public class ReturnBikeResponseModel
     {
-        public ReturnBikeResponseModel(double hours, double price)
+        public ReturnBikeResponseModel(double hours, double price, string cardNumber)
         {
             Price = price;
             Hours = hours;
-            CardNumber = "5314";
+            CardNumber = cardNumber;
         }
 
         public string CardNumber { get; private set; }

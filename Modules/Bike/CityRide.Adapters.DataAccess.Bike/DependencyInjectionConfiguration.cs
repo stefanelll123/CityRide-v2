@@ -1,5 +1,6 @@
 ﻿using CityRide.Adapters.DataAccess.Bike.Repositories;
 using CityRide.Interop.DataAccess.Bike.Repositories;
+using CityRide.Interop.Identity.Bike;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CityRide.Adapters.DataAccess.Bike
@@ -11,6 +12,7 @@ namespace CityRide.Adapters.DataAccess.Bike
             service.AddScoped<IBikeRepository, BikeRepository>();
             service.AddScoped<IBorrowRepository, BorrowRepository>();
             service.AddScoped<IPriceRepository, PriceRepository>();
+            service.AddScoped<IIdentityInterop, IdentityInterop>();
         }
     }
 }

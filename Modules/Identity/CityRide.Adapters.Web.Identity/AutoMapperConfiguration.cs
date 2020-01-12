@@ -13,6 +13,14 @@ namespace CityRide.Adapters.Web.Identity
             config.CreateMap<CreateUserModel, User>();
             config.CreateMap<UserAuthenticationModel, UserAuthenticationDto>();
             config.CreateMap<AuthenticationDto, AuthenticationModel>();
+
+            config.CreateMap<Card, CardCreateModel>();
+            config.CreateMap<CardCreateModel, Card>();
+
+            config.CreateMap<Card, CardModel>()
+                .ForMember(dest => dest.EndCardNumber, opt => opt.MapFrom(src => src.CardNumber.Substring(src.CardNumber.Length - 4)))
+
+                .ForAllOtherMembers(x => x.Ignore());
         }
     }
 }
