@@ -33,5 +33,14 @@ namespace CityRide.Entities.Bike
         {
             EndDate = endDate;
         }
+
+        public double ComputeBorrowHours()
+        {
+            var endDate = DateTime.Now.ToUniversalTime();
+            var startDate = StartDate.ToUniversalTime();
+            var diff = endDate.Subtract(startDate);
+
+            return diff.TotalHours;
+        }
     }
 }

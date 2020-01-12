@@ -7,7 +7,6 @@ using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Infrastructure;
 using System;
 using CityRide.Entities.Bike;
-using MongoDB.Bson;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
@@ -46,11 +45,8 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
 
             if (borrow != null)
             {
-                var startDate = borrow.StartDate;
-                var endDate = DateTime.Now;
-
-                borrowHours = (endDate - startDate).TotalHours;
-                borrow.SetEndDate(endDate);
+                borrowHours = borrow.ComputeBorrowHours();
+                borrow.SetEndDate(DateTime.Now);
 
                 await UpdateBorrow(borrow);
             }

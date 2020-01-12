@@ -47,7 +47,7 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
 
         public async Task SetActive(Guid id)
         {
-            var filter = Builders<Entities.Bike.Bike>.Filter.Eq("_id", id);
+            var filter = Builders<Entities.Bike.Bike>.Filter.Eq("Id", id);
             var update = Builders<Entities.Bike.Bike>.Update.Set("IsActive", true);
 
             await _bikes.UpdateOneAsync(filter, update);
