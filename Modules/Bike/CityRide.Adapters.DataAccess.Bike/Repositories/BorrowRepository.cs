@@ -47,11 +47,8 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
 
             if (borrow != null)
             {
-                var startDate = borrow.StartDate;
-                var endDate = DateTime.Now;
-
-                borrowHours = (endDate - startDate).TotalHours;
-                borrow.SetEndDate(endDate);
+                borrowHours = borrow.ComputeBorrowHours();
+                borrow.SetEndDate(DateTime.Now);
 
                 await (this as IBorrowRepository).UpdateBorrow(borrow);
             }
