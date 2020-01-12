@@ -30,6 +30,11 @@ namespace CityRide.Domain.Identity.ApplicationServices.Implementations
             _config = config;
         }
 
+        async Task<User> IAuthenticationApplicationService.GetUserBy(Guid userId)
+        {
+            return await _userRepository.GetUserBy(userId);
+        }
+
         async Task<Result> IAuthenticationApplicationService.Login(UserAuthenticationDto userAuthenticationDto)
         {
             var user = await _userRepository.GetUserBy(userAuthenticationDto.Email);

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CityRide.Domain.Bike.ApplicationServices.Interfaces;
 using CityRide.Entities.Bike;
 using CityRide.Entities.Bike.Dtos;
+using CityRide.Infrastructure.ServiceBus;
 using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Interop.Identity.Bike;
 using CityRide.Ports.Web.Bike.Models;
@@ -19,6 +20,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
         private readonly IBorrowRepository _borrowRepository;
         private readonly IPriceRepository _priceRepository;
         private readonly IIdentityInterop _identityInterop;
+        private readonly IBusManager _busManager;
 
         private const int numberOfMeters = 10000;
 
@@ -26,7 +28,8 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             IBikeRepository bikeRepository,
             IBorrowRepository borrowRepository,
             IPriceRepository priceRepository,
-            IIdentityInterop identityInterop)
+            IIdentityInterop identityInterop,
+            IBusManager busManager)
         {
             EnsureArg.IsNotNull(bikeRepository);
             EnsureArg.IsNotNull(borrowRepository);
@@ -36,6 +39,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             _borrowRepository = borrowRepository;
             _priceRepository = priceRepository;
             _identityInterop = identityInterop;
+            _busManager = busManager;
         }
 
         async Task IBikeApplicationService.AddBikeAsync(Entities.Bike.Bike bike)
@@ -101,6 +105,10 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             var returnBikeResponseModel = new ReturnBikeResponseModel(borrowHours, price, card?.EndCardNumber);
 
             await _bikeRepository.SetActive(bikeId);
+
+            var user = await _identityInterop.GetUserInfo(userId);
+            await _busManager.SendMessage(
+                ReturnEmailDto.Create(user.FullName, user.Email, (returnBikeResponseModel.Hours * returnBikeResponseModel.Price).ToString()), "email_exchange");
 
             return returnBikeResponseModel;
         }

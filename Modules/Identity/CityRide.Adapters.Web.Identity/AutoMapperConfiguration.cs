@@ -2,6 +2,7 @@
 
 using CityRide.Entities.Identity;
 using CityRide.Entities.Identity.Dtos;
+using CityRide.Ports.Web.Identity;
 using CityRide.Ports.Web.Identity.Models;
 
 namespace CityRide.Adapters.Web.Identity
@@ -21,6 +22,9 @@ namespace CityRide.Adapters.Web.Identity
                 .ForMember(dest => dest.EndCardNumber, opt => opt.MapFrom(src => src.CardNumber.Substring(src.CardNumber.Length - 4)))
 
                 .ForAllOtherMembers(x => x.Ignore());
+
+            config.CreateMap<User, UserModel>();
+            config.CreateMap<UserModel, User>();
         }
     }
 }

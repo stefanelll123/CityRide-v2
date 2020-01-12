@@ -11,6 +11,7 @@ namespace CityRide.Adapters.Web.Identity
             service.AddScoped<IRegisterPort, RegisterPort>();
             service.AddScoped<IAuthenticationPort, AuthenticationPort>();
             service.AddScoped<ICardPort, CardPort>();
+            service.AddScoped<IUserPort, UserPort>();
         }
     }
 }
