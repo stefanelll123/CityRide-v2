@@ -19,6 +19,6 @@ namespace CityRide.Domain.Bike.ApplicationServices.Interfaces
 
         Task<BorrowResponseModel> Borrow(Guid bikeId, Guid userId);
 
-        Task<ReturnBikeResponseModel> Return(Guid bikeId);
+        Task<ReturnBikeResponseModel> Return(Guid bikeId, Guid userId);
     }
 }

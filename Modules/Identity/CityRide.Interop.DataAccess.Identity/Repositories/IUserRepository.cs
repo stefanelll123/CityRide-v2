@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+
 using CityRide.Entities.Identity;
 
 namespace CityRide.Interop.DataAccess.Identity.Repositories
@@ -8,5 +10,11 @@ namespace CityRide.Interop.DataAccess.Identity.Repositories
         Task CreateUser(User user);
 
         Task<User> GetUserBy(string email);
+
+        Task<User> GetUserBy(Guid id);
+
+        Task UpdateUser(User user);
+
+        Task<Card> GetCard(Guid userId);
     }
 }

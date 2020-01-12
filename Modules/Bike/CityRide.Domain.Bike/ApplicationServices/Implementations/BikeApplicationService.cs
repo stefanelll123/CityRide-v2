@@ -6,6 +6,7 @@ using CityRide.Domain.Bike.ApplicationServices.Interfaces;
 using CityRide.Entities.Bike;
 using CityRide.Entities.Bike.Dtos;
 using CityRide.Interop.DataAccess.Bike.Repositories;
+using CityRide.Interop.Identity.Bike;
 using CityRide.Ports.Web.Bike.Models;
 
 using EnsureThat;
@@ -17,10 +18,15 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
         private readonly IBikeRepository _bikeRepository;
         private readonly IBorrowRepository _borrowRepository;
         private readonly IPriceRepository _priceRepository;
+        private readonly IIdentityInterop _identityInterop;
 
         private const int numberOfMeters = 10000;
 
-        public BikeApplicationService(IBikeRepository bikeRepository, IBorrowRepository borrowRepository, IPriceRepository priceRepository)
+        public BikeApplicationService(
+            IBikeRepository bikeRepository,
+            IBorrowRepository borrowRepository,
+            IPriceRepository priceRepository,
+            IIdentityInterop identityInterop)
         {
             EnsureArg.IsNotNull(bikeRepository);
             EnsureArg.IsNotNull(borrowRepository);
@@ -29,6 +35,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             _bikeRepository = bikeRepository;
             _borrowRepository = borrowRepository;
             _priceRepository = priceRepository;
+            _identityInterop = identityInterop;
         }
 
         async Task IBikeApplicationService.AddBikeAsync(Entities.Bike.Bike bike)
@@ -80,7 +87,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             return responseModel;
         }
 
-        async Task<ReturnBikeResponseModel> IBikeApplicationService.Return(Guid bikeId)
+        async Task<ReturnBikeResponseModel> IBikeApplicationService.Return(Guid bikeId, Guid userId)
         {
             var price = await _priceRepository.GetValue();
             var borrowHours = await _borrowRepository.GetBorrowHours(bikeId);
@@ -90,7 +97,8 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
                 return null;
             }
 
-            var returnBikeResponseModel = new ReturnBikeResponseModel(borrowHours, price);
+            var card = await _identityInterop.GetCardEndNumbers(userId);
+            var returnBikeResponseModel = new ReturnBikeResponseModel(borrowHours, price, card?.EndCardNumber);
 
             await _bikeRepository.SetActive(bikeId);
 

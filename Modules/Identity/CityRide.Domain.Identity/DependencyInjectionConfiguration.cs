@@ -1,13 +1,13 @@
 ﻿using System.Text;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 using CityRide.Domain.Identity.ApplicationServices.Implementations;
 using CityRide.Domain.Identity.ApplicationServices.Interfaces;
 using CityRide.Domain.Identity.DomainServices.Implementations;
 using CityRide.Domain.Identity.DomainServices.Interfaces;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
 
 namespace CityRide.Domain.Identity
 {
@@ -17,6 +17,8 @@ namespace CityRide.Domain.Identity
         {
             service.AddScoped<ICredentialsApplicationService, CredentialsApplicationService>();
             service.AddScoped<IAuthenticationApplicationService, AuthenticationApplicationService>();
+            service.AddScoped<ICardApplicationService, CardApplicationService>();
+
             service.AddScoped<IPasswordHasher, PasswordHasher>();
 
             service

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules\Bike\CityRide.Entities.Bike\CityRide.Entities.Bike.csproj" />
+    <ProjectReference Include="..\Modules\Bike\CityRide.Interop.Identity.Bike\CityRide.Interop.Identity.Bike.csproj" />
+    <ProjectReference Include="..\Modules\Identity\CityRide.Ports.Web.Identity\CityRide.Ports.Web.Identity.csproj" />
   </ItemGroup>
 
 </Project>
