@@ -18,6 +18,8 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
         private readonly IBorrowRepository _borrowRepository;
         private readonly IPriceRepository _priceRepository;
 
+        private const int numberOfMeters = 1000;
+
         public BikeApplicationService(IBikeRepository bikeRepository, IBorrowRepository borrowRepository, IPriceRepository priceRepository)
         {
             EnsureArg.IsNotNull(bikeRepository);
@@ -39,6 +41,11 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
             var bikes = await _bikeRepository.GetAllAsync();
 
             return bikes;
+        }
+
+        async Task<ICollection<Entities.Bike.Bike>> IBikeApplicationService.GetAllBikesByPosition(double latitude, double longitude)
+        {
+            return await _bikeRepository.GetAllByPosition(latitude, longitude, numberOfMeters);
         }
 
         async Task IBikeApplicationService.UpdateBikePosition(Guid bikeId, BikePositionDto bikePositionDto)

@@ -26,9 +26,9 @@ namespace CityRide.WebApi.Controllers
         }
 
         [HttpGet("position")]
-        public Task<IActionResult> GetBikesByPosition([FromQuery(Name = "latitude")] double latitude, [FromQuery(Name = "longitude")] double longitude)
+        public async Task<IActionResult> GetBikesByPosition([FromQuery(Name = "latitude")] double latitude, [FromQuery(Name = "longitude")] double longitude)
         {
-            throw new NotImplementedException();
+            return Ok(await _bikePort.GetBikesByPosition(latitude, longitude));
         }
 
         [HttpGet]

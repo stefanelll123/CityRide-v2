@@ -37,6 +37,13 @@ namespace CityRide.Adapters.Web.Bike
             await _bikeApplicationService.AddBikeAsync(bike);
         }
 
+        async Task<ICollection<BikeModel>> IBikePort.GetBikesByPosition(double latitude, double longitude)
+        {
+            var bikes = await _bikeApplicationService.GetAllBikesByPosition(latitude, longitude);
+
+            return _mapper.Map<ICollection<BikeModel>>(bikes);
+        }
+
         async Task<ICollection<BikeModel>> IBikePort.GetAllBikesAsync()
         {
             var bikes = await _bikeApplicationService.GetAllBikesAsync();

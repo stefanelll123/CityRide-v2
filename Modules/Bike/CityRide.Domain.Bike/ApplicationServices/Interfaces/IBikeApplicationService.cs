@@ -13,6 +13,8 @@ namespace CityRide.Domain.Bike.ApplicationServices.Interfaces
 
         Task<ICollection<Entities.Bike.Bike>> GetAllBikesAsync();
 
+        Task<ICollection<Entities.Bike.Bike>> GetAllBikesByPosition(double latitude, double longitude);
+
         Task UpdateBikePosition(Guid bikeId, BikePositionDto bikePositionDto);
 
         Task<BorrowResponseModel> Borrow(Guid bikeId, Guid userId);
