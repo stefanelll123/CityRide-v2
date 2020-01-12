@@ -1,4 +1,4 @@
-﻿namespace CityRide.Entities.Identity.Dtos
+﻿namespace CityRide.Entities.Bike.Dtos
 {
     public sealed class CardDto
     {

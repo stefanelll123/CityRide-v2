@@ -12,6 +12,8 @@ using CityRide.Infrastructure.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using CityRide.Bootstrap.Identity;
+using MassTransit;
+using System;
 
 namespace CityRide.WebApi
 {
@@ -54,7 +56,22 @@ namespace CityRide.WebApi
             services.AddCors();
 
             services.AddMvc()
-                    .AddFluentValidation();
+                    .AddFluentValidation(); 
+            
+            var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
+                    {
+                        var host = cfg.Host(Configuration.GetSection("RabbitMq:Endpoint").Value, h =>
+                        {
+                            h.Username(Configuration.GetSection("RabbitMq:Username").Value);
+                            h.Password(Configuration.GetSection("RabbitMq:Password").Value);
+                        });
+                    });
+
+            services.AddSingleton<IPublishEndpoint>(bus);
+            services.AddSingleton<ISendEndpointProvider>(bus);
+            services.AddSingleton<IBus>(bus);
+
+            bus.Start();
 
             ConfigureMapper(services);
 

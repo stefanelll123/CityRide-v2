@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CityRide.Entities.Identity.Dtos;
+using CityRide.Entities.Bike.Dtos;
 using CityRide.Interop.Identity.Bike;
 using CityRide.Ports.Web.Identity;
 using System;
@@ -11,10 +11,12 @@ namespace CityRide.Adapters.DataAccess.Bike
     {
         private readonly ICardPort _cardPort;
         private readonly IMapper _mapper;
+        private readonly IUserPort _userPort;
 
-        public IdentityInterop(ICardPort cardPort, IMapper mapper)
+        public IdentityInterop(ICardPort cardPort, IUserPort userPort, IMapper mapper)
         {
             _cardPort = cardPort;
+            _userPort = userPort;
             _mapper = mapper;
         }
 
@@ -23,6 +25,13 @@ namespace CityRide.Adapters.DataAccess.Bike
             var result = await _cardPort.GetCardLastNumbers(userId);
 
             return _mapper.Map<CardDto>(result);
+        }
+
+        async Task<UserDto> IIdentityInterop.GetUserInfo(Guid userId)
+        {
+            var user = await _userPort.GetUserBy(userId);
+
+            return _mapper.Map<UserDto>(user);
         }
     }
 }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Identity\CityRide.Entities.Identity\CityRide.Entities.Identity.csproj" />
+    <ProjectReference Include="..\CityRide.Entities.Bike\CityRide.Entities.Bike.csproj" />
   </ItemGroup>
 
 </Project>
