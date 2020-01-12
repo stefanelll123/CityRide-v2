@@ -18,7 +18,7 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
         private readonly IBorrowRepository _borrowRepository;
         private readonly IPriceRepository _priceRepository;
 
-        private const int numberOfMeters = 1000;
+        private const int numberOfMeters = 10000;
 
         public BikeApplicationService(IBikeRepository bikeRepository, IBorrowRepository borrowRepository, IPriceRepository priceRepository)
         {
