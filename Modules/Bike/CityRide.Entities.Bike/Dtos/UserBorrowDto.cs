@@ -19,7 +19,7 @@ namespace CityRide.Entities.Bike.Dtos
                 BikeId = bike.Id,
                 BikeModel = bike.Model,
                 PricePerHour = price.Value,
-                TimeBorrowed = 10
+                TimeBorrowed = borrow.ComputeBorrowHours()
             };
         }
     }
