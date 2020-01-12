@@ -91,7 +91,25 @@ namespace CityRide.WebApi.Controllers
             }
 
             var userBorrowModel = await _bikePort.GetBikeBorrowedByUser(userId.Value);
+            if(userBorrowModel == null)
+            {
+                return NotFound();
+            }
+
             return Ok(userBorrowModel);
+        }
+
+        [HttpGet("borrow/user/history")]
+        public async Task<IActionResult> GetUserBorrowHistory()
+        {
+            var userId = GetRequestUserId();
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var userBorrowModelList = await _bikePort.GetUserBorrowHistory(userId.Value);
+            return Ok(userBorrowModelList);
         }
 
         private Guid? GetRequestUserId()

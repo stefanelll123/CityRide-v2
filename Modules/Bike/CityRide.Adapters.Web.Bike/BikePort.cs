@@ -69,5 +69,12 @@ namespace CityRide.Adapters.Web.Bike
 
             return _mapper.Map<UserBorrowModel>(userBorrow);
         }
+
+        async Task<ICollection<UserBorrowModel>> IBikePort.GetUserBorrowHistory(Guid userId)
+        {
+            var result = await _borrowApplicationService.GetUserBorrowHistory(userId);
+
+            return _mapper.Map<ICollection<UserBorrowModel>>(result);
+        }
     }
 }
