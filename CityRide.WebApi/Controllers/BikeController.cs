@@ -26,9 +26,9 @@ namespace CityRide.WebApi.Controllers
         }
 
         [HttpGet("position")]
-        public Task<IActionResult> GetBikesByPosition([FromQuery(Name = "latitude")] double latitude, [FromQuery(Name = "longitude")] double longitude)
+        public async Task<IActionResult> GetBikesByPosition([FromQuery(Name = "latitude")] double latitude, [FromQuery(Name = "longitude")] double longitude)
         {
-            throw new NotImplementedException();
+            return Ok(await _bikePort.GetBikesByPosition(latitude, longitude));
         }
 
         [HttpGet]
@@ -58,7 +58,12 @@ namespace CityRide.WebApi.Controllers
         [HttpPost("borrow/{id}")]
         public async Task<IActionResult> BorrowBike([FromRoute] Guid id)
         {
-            var response = await _bikePort.Borrow(id);
+            var userId = GetRequestUserId();
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            var response = await _bikePort.Borrow(id, userId.Value);
 
             return Ok(response);
         }
@@ -74,6 +79,44 @@ namespace CityRide.WebApi.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpGet("borrow/user")]
+        public async Task<IActionResult> GetCurrentUserBorrowBike()
+        {
+            var userId = GetRequestUserId();
+            if(userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var userBorrowModel = await _bikePort.GetBikeBorrowedByUser(userId.Value);
+            if(userBorrowModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userBorrowModel);
+        }
+
+        [HttpGet("borrow/user/history")]
+        public async Task<IActionResult> GetUserBorrowHistory()
+        {
+            var userId = GetRequestUserId();
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var userBorrowModelList = await _bikePort.GetUserBorrowHistory(userId.Value);
+            return Ok(userBorrowModelList);
+        }
+
+        private Guid? GetRequestUserId()
+        {
+            var userId = new Guid(HttpContext.User.FindFirst("UserId").Value);
+
+            return userId;
         }
     }
 }

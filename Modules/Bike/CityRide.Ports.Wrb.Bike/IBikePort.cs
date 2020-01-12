@@ -9,12 +9,18 @@ namespace CityRide.Ports.Web.Bike
     {
         Task AddBike(BikeCreateModel bikeModel);
 
+        Task<ICollection<BikeModel>> GetBikesByPosition(double latitude, double longitude);
+
         Task<ICollection<BikeModel>> GetAllBikesAsync();
 
         Task UpdateBikePosition(Guid id, BikePositionModel bikePositionModel);
 
-        Task<BorrowResponseModel> Borrow(Guid bikeId);
+        Task<BorrowResponseModel> Borrow(Guid bikeId, Guid userId);
 
         Task<ReturnBikeResponseModel> Return(Guid bikeId);
+
+        Task<UserBorrowModel> GetBikeBorrowedByUser(Guid userId);
+
+        Task<ICollection<UserBorrowModel>> GetUserBorrowHistory(Guid userId);
     }
 }

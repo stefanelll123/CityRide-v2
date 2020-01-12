@@ -13,26 +13,35 @@ namespace CityRide.Adapters.Web.Bike
     internal sealed class BikePort : IBikePort
     {
         private readonly IBikeApplicationService _bikeApplicationService;
+        private readonly IBorrowApplicationService _borrowApplicationService;
         private readonly IMapper _mapper;
 
-        public BikePort(IBikeApplicationService bikeApplicationService, IMapper mapper)
+        public BikePort(IBikeApplicationService bikeApplicationService, IBorrowApplicationService borrowApplicationService, IMapper mapper)
         {
             EnsureArg.IsNotNull(bikeApplicationService);
             EnsureArg.IsNotNull(mapper);
 
             _bikeApplicationService = bikeApplicationService;
+            _borrowApplicationService = borrowApplicationService;
             _mapper = mapper;
         }
 
-        public async Task<BorrowResponseModel> Borrow(Guid bikeId)
+        async Task<BorrowResponseModel> IBikePort.Borrow(Guid bikeId, Guid userId)
         {
-            return await _bikeApplicationService.Borrow(bikeId);
+            return await _bikeApplicationService.Borrow(bikeId, userId);
         }
 
         async Task IBikePort.AddBike(BikeCreateModel bikeModel)
         {
             var bike = _mapper.Map<Entities.Bike.Bike>(bikeModel);
             await _bikeApplicationService.AddBikeAsync(bike);
+        }
+
+        async Task<ICollection<BikeModel>> IBikePort.GetBikesByPosition(double latitude, double longitude)
+        {
+            var bikes = await _bikeApplicationService.GetAllBikesByPosition(latitude, longitude);
+
+            return _mapper.Map<ICollection<BikeModel>>(bikes);
         }
 
         async Task<ICollection<BikeModel>> IBikePort.GetAllBikesAsync()
@@ -52,6 +61,20 @@ namespace CityRide.Adapters.Web.Bike
         async Task<ReturnBikeResponseModel> IBikePort.Return(Guid bikeId)
         {
             return await _bikeApplicationService.Return(bikeId);
+        }
+
+        async Task<UserBorrowModel> IBikePort.GetBikeBorrowedByUser(Guid userId)
+        {
+            var userBorrow = await _borrowApplicationService.GetBikeBorrowedByUser(userId);
+
+            return _mapper.Map<UserBorrowModel>(userBorrow);
+        }
+
+        async Task<ICollection<UserBorrowModel>> IBikePort.GetUserBorrowHistory(Guid userId)
+        {
+            var result = await _borrowApplicationService.GetUserBorrowHistory(userId);
+
+            return _mapper.Map<ICollection<UserBorrowModel>>(result);
         }
     }
 }
