@@ -1,11 +1,12 @@
 const {sendEmail} = require('../utils/util');
 
 module.exports = (env) => {
-    env.channel.consume(process.env.QUEUE || 'tasks', async (message) => {
+    env.channel.consume(process.env.QUEUE || 'email_queue', async (payload) => {
         try {
-            const msg = JSON.parse(message.content);
+            const payloadContent = JSON.parse(payload.content);
+            const {message} = payloadContent;
 
-            sendEmail(env, msg);         
+            sendEmail(env, message);         
         } catch (err) {
             console.error(err);
         }
