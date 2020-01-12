@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using CityRide.Domain.Bike.ApplicationServices.Interfaces;
+using CityRide.Entities.Bike;
 using CityRide.Entities.Bike.Dtos;
 using CityRide.Interop.DataAccess.Bike.Repositories;
 
@@ -27,6 +30,24 @@ namespace CityRide.Domain.Bike.ApplicationServices.Implementations
                 return null;
             }
 
+            return await CreateUserBorrowHistory(borrow);
+        }
+
+        async Task<ICollection<UserBorrowDto>> IBorrowApplicationService.GetUserBorrowHistory(Guid userId)
+        {
+            var borrows = await _borrowRepository.GetHistoryBorrowHistory(userId);
+
+            var userBorrowDtoList = new List<UserBorrowDto>();
+            foreach (var borrow in borrows)
+            {
+                userBorrowDtoList.Add(await CreateUserBorrowHistory(borrow));
+            }
+
+            return userBorrowDtoList;
+        }
+
+        private async Task<UserBorrowDto> CreateUserBorrowHistory(Borrow borrow)
+        {
             var price = _priceRepository.GetPriceBy(borrow.PriceId);
             var bike = await _bikeRepository.GetBikeBy(borrow.BikeId);
 

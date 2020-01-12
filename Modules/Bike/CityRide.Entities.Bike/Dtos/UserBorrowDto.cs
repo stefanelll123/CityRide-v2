@@ -1,7 +1,11 @@
-﻿namespace CityRide.Entities.Bike.Dtos
+﻿using System;
+
+namespace CityRide.Entities.Bike.Dtos
 {
     public class UserBorrowDto
     {
+        public Guid BikeId { get; set; }
+
         public string BikeModel { get; set; }
 
         public double TimeBorrowed { get; set; }
@@ -12,6 +16,7 @@
         {
             return new UserBorrowDto
             {
+                BikeId = bike.Id,
                 BikeModel = bike.Model,
                 PricePerHour = price.Value,
                 TimeBorrowed = 10

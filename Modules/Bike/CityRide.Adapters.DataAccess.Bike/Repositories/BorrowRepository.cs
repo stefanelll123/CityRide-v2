@@ -8,6 +8,7 @@ using CityRide.Interop.DataAccess.Bike.Repositories;
 using CityRide.Infrastructure;
 using System;
 using CityRide.Entities.Bike;
+using System.Collections.Generic;
 
 namespace CityRide.Adapters.DataAccess.Bike.Repositories
 {
@@ -22,26 +23,26 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
             _borrows = databaseContext.Borrow;
         }
 
-        public async Task AddBorrow(Borrow borrow)
+        async Task IBorrowRepository.AddBorrow(Borrow borrow)
         {
             await _borrows.InsertOneAsync(borrow);
         }
 
-        public async Task<Borrow> GetBorrowByBikeId(Guid id)
+        async Task<Borrow> IBorrowRepository.GetBorrowByBikeId(Guid id)
         {
             var bike = await _borrows.FindAsync(x => x.BikeId == id && x.EndDate == null);
 
             return bike.FirstOrDefault();
         }
 
-        public async Task UpdateBorrow(Borrow borrow)
+        async Task IBorrowRepository.UpdateBorrow(Borrow borrow)
         {
             await _borrows.FindOneAndReplaceAsync(x => x.Id == borrow.Id, borrow);
         }
 
-        public async Task<double> GetBorrowHours(Guid bikeId)
+        async Task<double> IBorrowRepository.GetBorrowHours(Guid bikeId)
         {
-            var borrow = await GetBorrowByBikeId(bikeId);
+            var borrow = await (this as IBorrowRepository).GetBorrowByBikeId(bikeId);
             double borrowHours = -1;
 
             if (borrow != null)
@@ -52,15 +53,22 @@ namespace CityRide.Adapters.DataAccess.Bike.Repositories
                 borrowHours = (endDate - startDate).TotalHours;
                 borrow.SetEndDate(endDate);
 
-                await UpdateBorrow(borrow);
+                await (this as IBorrowRepository).UpdateBorrow(borrow);
             }
 
             return borrowHours;
         }
 
-        public Borrow GetBorrowBy(Guid userId)
+        Borrow IBorrowRepository.GetBorrowBy(Guid userId)
         {
-            return _borrows.Find(x => x.UserId == userId).ToList().FirstOrDefault();
+            return _borrows.Find(x => x.UserId == userId && x.EndDate == null).ToList().FirstOrDefault();
+        }
+
+        async Task<ICollection<Borrow>> IBorrowRepository.GetHistoryBorrowHistory(Guid userId)
+        {
+            return (await _borrows.FindAsync(x => x.UserId == userId &&
+                                                  x.EndDate != null))
+                .ToList();
         }
     }
 }
